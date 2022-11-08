@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>userInfoPage</title>
-    <link rel="stylesheet" href="../css/logo.css">
     <link rel="stylesheet" href="../css/userinfoPage.css">
 </head>
 <body>
@@ -19,41 +18,52 @@
         <form action="">
             <div id="user_info_div">
                 <div class="user_info">
-                    <div>
+                    <p>
                         이름
-                    </div>
-                    <div>
+                    </p>
+                    <p class="info">
                         한승재
-                    </div>
+                    </p>
+                    <input type="text" value="한승재" class="hidden">
                 </div>
                 <div class="user_info">
-                    <div>
+                    <p >
                         이메일
-                    </div>
-                    <div>
+                    </p>
+                    <p class="info">
                         asdf123@naver.com
-                    </div>
+                    </p>
+                    <input type="text" value="asdf123@naver.com" class="hidden">
                 </div>
                 
                 <div class="user_info">
-                    <div>
+                    <p>
                         부서
-                    </div>
-                    <div>
+                    </p>
+                    <p class="info">
                         H.R
-                    </div>
+                    </p>
+                    <select name="Department" id="select" class="hidden">
+                        <option value="Department">Department</option>
+                        <option value="H.R">H.R</option>
+                        <option value="Management">Management</option>
+                        <option value="Support">Support</option>
+                        <option value="Accounting">Accounting</option>
+                    </select>
                 </div>
                 <div class="user_info">
-                    <div>
+                    <p>
                         연락처
-                    </div>
-                    <div>
+                    </p>
+                    <p class="info">
                         010-1111-1111
-                    </div>
+                    </p>
+                    <input type="text" value="010-1111-1111" class="hidden">
                 </div>
             </div>
             <nav>
                 <input type="button" value="수정" class="btn" id="update">
+                <input type="button" value="확인" class="btn" id="ok"> 
                 <input type="button" value="삭제" class="btn" id="delete">
             </nav>
         </form>

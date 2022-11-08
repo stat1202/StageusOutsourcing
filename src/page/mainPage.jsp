@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MySchedule</title>
-    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/mainPage.css">
 </head>
 <body>
@@ -23,9 +22,9 @@
         <div>
             <input type="button" value="일정 입력" id="mobile_middle_btn">
         </div>
-        <div id="header_right">
+        <p id="header_right">
             사용자님의 일정
-        </div>
+        </p>
     </header>
     <div id="mobile_input">
         <form id="mobile_middle">
@@ -37,61 +36,42 @@
     </div>
     <nav>
         <div id="nav_top">
-            <div class="nav_option" onclick="location.href='./userinfoPage.jsp'">
+            <p class="nav_option" onclick="location.href='./userinfoPage.jsp'">
                 내 정보
-            </div>
+            </p>
         </div>
         
         <div id="nav_bottom">
-            <div class="nav_option"> 
+            <p class="nav_option"> 
                 팀원들
-            </div>
-            <div class="nav_option teammate" onclick="location.href='./mateSchedulePage.jsp'">
+            </p>
+            <p class="nav_option teammate" onclick="location.href='./mateSchedulePage.jsp'">
                 팀원1
-            </div >
-            <div class="nav_option teammate" onclick="location.href='./mateSchedulePage.jsp'">
+            </p >
+            <p class="nav_option teammate" onclick="location.href='./mateSchedulePage.jsp'">
                 팀원2
-            </div>
+            </p>
         </div>
     </nav>
     <main>
         <div id="month_form">
             <input type="button" value="<" class="arrow">
-            <div id="month">Jan</div>
+            <p id="month">Jan</p>
             <input type="button" value=">" class="arrow">
         </div>
         <div id="schedule_div">
             <!-- <form action="" class="schedule_form">
-                <div class="day">
+                <p class="day">
                     1일
-                </div>
-                <div class="time">
+                </p>
+                <p class="time">
                     오후 3:00
-                </div>
+                </p>
                 <div class="promise">
                     <div class="promise_left">
-                        <div>
+                        <p>
                             일하기sdasdsdsdsdsdsds
-                        </div>
-                        <div class="update_hidden">
-                            <input type="text" id="update_text" value="일하기sdasdsdsdsdsdsds">
-                            <input type="button" value="확인" class="ok_btn">
-                        </div>
-                    </div>
-                    <div class="promise_right">
-                        <input type="button" value="수정" class="update_btn">
-                        <input type="button" value="삭제" class="delete_btn">
-                    </div>
-                </div>
-                
-                <div class="time">
-                    오후 5:30
-                </div>
-                <div class="promise">
-                    <div class="promise_left">
-                        <div>
-                            일하기sda
-                        </div>
+                        </p>
                         <div class="update_hidden">
                             <input type="text" id="update_text" value="일하기sdasdsdsdsdsdsds">
                             <input type="button" value="확인" class="ok_btn">

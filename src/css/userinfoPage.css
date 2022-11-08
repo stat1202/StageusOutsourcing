@@ -20,6 +20,22 @@ nav{
     max-width: 400px;
 
 }
+
+/* 로고 */
+
+#logo{
+    margin: 0;
+    font-family: Arial Black;
+    color: #FFD400;
+    font-size: 50px;
+    font-weight: 800;
+    text-align: center;
+}
+
+#logo:hover{
+    cursor: pointer;
+}
+
 #user_info_div{
     display: flex;
     width: 50%;
@@ -27,7 +43,6 @@ nav{
     justify-content: center;
     border: 1px solid black;
     border-radius: 10px;
-    height: 300px;
     max-width: 400px;
 }
 
@@ -47,4 +62,23 @@ nav{
 }
 .btn:hover{
     cursor: pointer;
+}
+
+/* 수정 버튼 클릭 시 */
+.hidden{
+    display: none;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 16px;
+    width: 150px;
+    margin: 16px 0;
+}
+
+.hidden:focus{
+    outline: 2px solid #FFD400;
+    border: 1px solid #FFD400;
+}
+
+#ok{
+    display: none;
 }

@@ -5,20 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindEmail</title>
-    <link rel="stylesheet" href="../css/logo.css">
-    <link rel="stylesheet" href="../css/input.css">
     <link rel="stylesheet" href="../css/loginPage.css">
 </head>
 <body>
     <header>
-        <div id="logo" onclick="location.href='../../loginPage.html'">
+        <h1 id="logo" onclick="location.href='../../loginPage.html'">
             FIND Email
-        </div>
+        </h1>
     </header>
     <main>
         <form action="">
             <input type="text" placeholder="Name" class="input" maxlength="20">
-            <input type="text" placeholder="H.P" class="input">
+            <input type="text" placeholder="H.P    '-' 를 제외하고 입력" class="input" maxlength="11">
             <input type="button" value="Find Email" class="input" id="submit">
         </form>
     </main>

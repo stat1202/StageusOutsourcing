@@ -70,7 +70,7 @@ monthName.innerHTML = month_names[month -1]
 
 var schedule_div = document.getElementById("schedule_div")
 for(var i = 0; i < num_day; i++){
-    var tmpdate = document.createElement('div')
+    var tmpdate = document.createElement('p')
     tmpdate.setAttribute('class','day')
 
     tmpdate.innerHTML = (i+1) + "일"

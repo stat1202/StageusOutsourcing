@@ -3,6 +3,54 @@ body{
     display: flex;
 }
 /* 헤더 */
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0  15px;
+    height: 64px;
+    align-items: center;
+    background-color: #FFD400;
+    border-bottom: 1px solid black;
+    font-family: Arial;
+    width: 100%;
+    position: fixed;
+}
+
+#header_middle{
+    margin: 0;
+    display: flex;
+}
+#header_right{
+    padding-right: 25px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#mobile_middle_btn{
+    display: none;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: fit-content
+}
+
+#mobile_input{
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    margin-top: 65px;
+    display: none;
+    justify-content: center;
+}
+#mobile_middle{
+    display: none;
+    padding: 10px;
+    background-color: #FFD400;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 10px;
+}
+
 #menu_icon{
     width: 32px;
 }
@@ -72,6 +120,7 @@ main{
 }
 
 .day{
+    margin: 0;
     padding-left: 10px;
     font-weight: 600;
     border-bottom: 1px solid black;
@@ -168,6 +217,20 @@ nav{
 
 .teammate:hover{
     text-decoration: underline;
+}
+
+/* 미디어 쿼리 */
+
+@media screen and (max-width : 600px) {
+    #mobile_middle{
+        display: block;
+    }
+    #header_middle{
+        display : none;
+    }
+    #mobile_middle_btn{
+        display: flex;
+    }
 }
 
 @media screen and (max-width:462px) {
