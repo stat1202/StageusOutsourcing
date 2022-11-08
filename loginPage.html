@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-in</title>
+    <link rel="stylesheet" href="./src/css/logo.css">
+    <link rel="stylesheet" href="./src/css/input.css">
+    <link rel="stylesheet" href="./src/css/loginPage.css">
+</head>
+<body>
+    <header>
+        <h1 id="logo" onclick="location.reload()">
+            STAGEUS
+        </h1>
+    </header>
+    <main>
+        <form action="">
+            <input type="text" placeholder="E-mail" class="input">
+            <input type="password" placeholder="Password" class="input" minlength="4" maxlength="20">
+            <input type="button" value="Log-in" class="input" id="submit">
+        </form>
+    </main>
+    <footer>
+        <a href="./src/page/findEmailPage.html" class="footer_option">이메일 찾기</a>
+        <a href="./src/page/findPasswordPage.html" class="footer_option">비밀번호 찾기</a>
+        <a href="./src/page/signupPage.html" class="footer_option">회원가입</a>
+    </footer>
+    <script src="./src/js/loginPage.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+#logo{
+    font-family: Arial Black;
+    color: #FFD400;
+    font-size: 50px;
+    font-weight: 800;
+    text-align: center;
+}
+
+#logo:hover{
+    cursor: pointer;
+}

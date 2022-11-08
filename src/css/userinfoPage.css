@@ -1,0 +1,50 @@
+body{
+    margin-top: 200px;
+}
+
+main{
+    width: 100%;
+}
+form{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    max-width: 400px;
+
+}
+#user_info_div{
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 300px;
+    max-width: 400px;
+}
+
+.user_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    justify-content: space-evenly;
+}
+
+.btn{
+    background-color: #FFD400;
+    border-radius: 5px;
+    border: 1px solid  black;
+    max-width: 400px;
+}
+.btn:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,20 @@
+body{
+    margin-top: 200px;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.footer_option{
+    text-decoration: none;
+    padding: 0 5px;
+    color: darkgray;
+    font-size: 12px;
+}
+.footer_option:hover{
+    text-decoration: underline;
+}
+

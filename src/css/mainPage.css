@@ -1,0 +1,184 @@
+body{
+    margin: 0;
+    display: flex;
+}
+/* 헤더 */
+#menu_icon{
+    width: 32px;
+}
+
+.input{
+    margin-right: 5px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 3px;
+}
+
+.input:focus{
+    outline: 2px solid #000000;
+    border: 1px solid #FFD400;
+}
+
+.btn{
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: fit-content
+}
+/* 메인 화면 */
+main{
+    width: 100%;
+}
+#month_form{
+    padding-top: 85px;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+}
+
+.arrow{
+    background: none;
+    color: #FFD400;
+    border: none;
+    font-size: 40px;
+}
+
+#month{
+    font-size: 32px;
+    padding: 0px 5px;
+    font-family: Arial;
+}
+
+/* 스케줄 관련*/
+#schedule_div{
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10px;
+    padding-bottom: 10%;
+
+    flex-wrap: wrap;
+    justify-content: stretch;
+}
+.schedule_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-basis: 180px;
+    border: 1px solid black;
+    margin: 0;
+    height: 200px;
+}
+
+.day{
+    padding-left: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+    background-color: #FFD400;
+}
+
+.time{
+    padding-left: 10px;
+    font-size: 12px;
+}
+
+.promise{
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.promise_left{
+    word-wrap: break-word;
+    width: 90px;
+}
+.promise_right{
+    display: flex;
+    height: fit-content;
+}
+
+.update_btn{
+    font-size: 10px;
+    margin-right: 3px;
+}
+.delete_btn{
+    font-size: 10px;
+}
+
+.ok_btn{
+    font-size: 10px;
+    margin-right: 3px;
+}
+
+.update_hidden{
+    display: none;
+}
+#update_text{
+    border-radius: 5px;
+    width: 130px;
+}
+
+#update_text:focus{
+    outline: 2px solid #FFD400;
+    border: 1px solid #FFD400;
+}
+
+/* 메뉴 사이드바 */
+nav{
+    display: none;
+    flex-direction: column;
+    width: 180px;
+    min-height: 100%;
+    background-color: #FFD400;
+    border-right: 1px solid black;
+    margin-top: 65px;
+    align-items: center;
+}
+
+.nav_option{
+    display: flex;
+    font-size: 16px;
+    height: 60px;
+    align-items: center;
+    padding-left: 15px;
+    font-weight: 800;
+}
+
+.nav_option:hover{
+    cursor: pointer;
+    
+}
+
+#nav_top{
+    height: 180px;
+    padding-top: 10px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+
+#nav_bottom{
+    width: 100%;
+}
+
+.teammate{
+    font-weight: 600;
+}
+
+.teammate:hover{
+    text-decoration: underline;
+}
+
+@media screen and (max-width:462px) {
+    #schedule_div{
+        padding: 0;
+        width: 364px;
+    }
+    .schedule_form{
+        width: 170px;
+    }
+    nav{
+        position: fixed;
+    }
+}
