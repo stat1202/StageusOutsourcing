@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -15,10 +17,10 @@
     </header>
     <main>
         <form action="../jsp/signupAction.jsp" id="form">
-            <input type="text" placeholder="E-mail" class="input" name="email">
-            <input type="password" placeholder="Password" class="input" minlength="4" maxlength="20" name="pw">
-            <input type="text" placeholder="Name" class="input" maxlength="20" name="name">
-            <input type="text" placeholder="H.P    '-' 를 제외하고 입력" class="input" maxlength="11" name="hp">
+            <input type="text" placeholder="E-mail" class="input">
+            <input type="password" placeholder="Password" class="input" minlength="4" maxlength="20">
+            <input type="text" placeholder="Name" class="input" maxlength="20">
+            <input type="text" placeholder="H.P    '-' 를 제외하고 입력" class="input" maxlength="11">
             <select name="Department" id="select" class="input">
                 <option value="Department">Department</option>
                 <option value="H.R">H.R</option>
@@ -26,7 +28,7 @@
                 <option value="Support">Support</option>
                 <option value="Accounting">Accounting</option>
             </select>
-            <input type="submit" value="Sign-up" class="input" id="submit">
+            <input type="button" value="Log-in" class="input" id="submit">
         </form>
     </main>
     <script src="../js/signupPage.js">

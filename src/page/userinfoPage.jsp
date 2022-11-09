@@ -45,7 +45,7 @@
                     </p>
                     <select name="Department" id="select" class="hidden">
                         <option value="Department">Department</option>
-                        <option value="H.R">H.R</option>
+                        <option value="H.R" selected>H.R</option>
                         <option value="Management">Management</option>
                         <option value="Support">Support</option>
                         <option value="Accounting">Accounting</option>

@@ -1,4 +1,4 @@
-function login(){
+function loginClick(){
     var email = input[0].value
     var pw = input[1].value
 
@@ -12,4 +12,4 @@ function login(){
 
 var input = document.getElementsByClassName('input')
 
-input[2].addEventListener('click', login)
+input[2].addEventListener('click', loginClick)
