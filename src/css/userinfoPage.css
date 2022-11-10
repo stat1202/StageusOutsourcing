@@ -17,6 +17,7 @@ nav{
     display: flex;
     justify-content: space-between;
     padding-top: 10px;
+    min-width: 250px;
     max-width: 400px;
 
 }
@@ -43,7 +44,9 @@ nav{
     justify-content: center;
     border: 1px solid black;
     border-radius: 10px;
+    min-width: 250px;
     max-width: 400px;
+    padding: 20px 20px;
 }
 
 .user_info{
@@ -58,7 +61,7 @@ nav{
     background-color: #FFD400;
     border-radius: 5px;
     border: 1px solid  black;
-    max-width: 400px;
+    
 }
 .btn:hover{
     cursor: pointer;

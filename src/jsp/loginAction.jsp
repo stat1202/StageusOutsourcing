@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
+
 <!-- Connector 파일 찾아오는 라이브러리 -->
 <%@ page import="java.sql.DriverManager" %>
 
@@ -10,35 +11,37 @@
 
 <%@ page import="java.sql.ResultSet" %>
 
-<%@ page import="java.util.ArrayList"%>
-
 <%
     request.setCharacterEncoding("utf-8");
 
-    //회원가입 창 값 받아오기
+    //전 페이지에서 받아온 email pw 저장
     String email = request.getParameter("email");
-    String hp = request.getParameter("hp");
+    String pw = request.getParameter("pw");
 
+    //데이터베이스 연결 커넥터 파일 찾아옴
     Class.forName("com.mysql.jdbc.Driver");
+    //데이터 베이스 로그인? 같은 서버일때 localhost 다르면 아이피 주소
     Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
-    //이메일 전화번호 일치하는 것 찾기
-    String sql = "SELECT password FROM user WHERE email = ? and hp = ?;";
 
+    //SQL문 준비
+    String sql = "SELECT idx, email, password from user WHERE email = ? AND password = ?;";
+    //전송 준비중인 sql 의미 보낼 준비 상태로 만들어줌
     PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, email);
-    query.setString(2, hp);
+    query.setString(2, pw);
 
     ResultSet result = query.executeQuery();
 
-    String pw = "";
-    int bool = 0;
+    //로그인 정보가 올바르지 않으면 0 아니면 user idx에 저장
+    int user_idx = 0; 
     if(result.next()){
-        bool = 1;
-        pw = result.getString("password");
+        user_idx = result.getInt("idx");
+        
     }
-
-    
+    // 세션에 등록
+    session.setAttribute("user_idx", user_idx);
 %>
+
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
@@ -48,36 +51,38 @@
 </head>
 <body>
     <script>
-        var bool = <%=bool%>
+        var user_idx = <%=user_idx%>
         var email = "<%=email%>"
-        var hp = "<%=hp%>"
+        var pw = "<%=pw%>"
 
         var reg_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-        var reg_hp = /^[0-9]*$/
-        if(email==""){
-            alert("이메일을 입력해주십시오.")
+        var reg_pw = /^[A-Za-z0-9]{4,20}$/
+        console.log(email)
+        if(email ==''){
+            alert("이메일을 입력해주십시오")
             history.back()
         }
-        else if(hp==""){
-            alert("전화번호를 입력해주십시오.")
+        else if(pw==''){
+            alert("비밀번호를 입력해주십시오")
             history.back()
         }
         else if( !reg_email.test(email) ){
             alert('형식에 맞게 작성해 주세요. ex) a123@naver.com')
             history.back()
         }
-        else if( !reg_hp.test(hp) || hp.length != 11){
-            alert("숫자만 입력해 주세요.")
+        else if( !reg_pw.test(pw)){
+            alert('4~20자의 영어와 숫자만 입력해 주세요.')
             history.back()
         }
-        else if(bool == 1){
-            alert("회원님의 비밀번호는 <%=pw%> 입니다.")
-            location.href="../../loginPage.html"
+        else if( user_idx == 0){
+            alert("Email 또는 PW가 잘못되었습니다.")
+            history.back()
         }
         else{
-            alert("회원정보와 일치하는 비밀번호가 없습니다.")
-            history.back()
+            alert("로그인 성공")
+            location.href="../page/mainPage.jsp"
         }
+
     </script>
 </body>
 </html>

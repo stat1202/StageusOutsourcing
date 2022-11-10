@@ -1,12 +1,15 @@
 
 function menuClick(){
     var nav = document.getElementsByTagName("nav")
+    var main = document.getElementsByTagName("main")
     if(menu_click==0){
         nav[0].style.display="flex"
+        main[0].style.paddingLeft = "150px"
         menu_click = 1
     }
     else{
         nav[0].style.display="none"
+        main[0].style.paddingLeft = "0px"
         menu_click = 0
     }
 }
@@ -25,9 +28,11 @@ function mobilebtnClick(){
 }
 function bodyClick(){
     var nav = document.getElementsByTagName("nav")
+    var main = document.getElementsByTagName("main")
     if(event.target.id != "menu_icon"){
         nav[0].style.display="none"
         menu_click = 0
+        main[0].style.paddingLeft = "0px"
     }
 }
 

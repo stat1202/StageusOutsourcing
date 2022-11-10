@@ -1,6 +1,7 @@
 body{
     margin: 0;
     display: flex;
+    width: 100%;
 }
 /* 헤더 */
 header{
@@ -179,11 +180,12 @@ nav{
     display: none;
     flex-direction: column;
     width: 180px;
-    min-height: 100%;
+    height: 100%;
     background-color: #FFD400;
     border-right: 1px solid black;
     margin-top: 65px;
     align-items: center;
+    position: fixed;
 }
 
 .nav_option{
@@ -240,8 +242,5 @@ nav{
     }
     .schedule_form{
         width: 170px;
-    }
-    nav{
-        position: fixed;
     }
 }

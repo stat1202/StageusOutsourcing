@@ -1,5 +1,44 @@
-<%@ page language="java" contentType="text/html" pageEncoding="utf-8" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!-- Connector 파일 찾아오는 라이브러리 -->
+<%@ page import="java.sql.DriverManager" %>
+<!-- 데이터베이스에 연결하는 라이브러리 -->
+<%@ page import="java.sql.Connection"%>
+<!-- SQL문을 만들어주는 라이브러리 -->
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.util.ArrayList"%>
+
+<%
+    request.setCharacterEncoding("utf-8");
+    int user_idx = 0;
+    try{
+        user_idx = (int)session.getAttribute("user_idx");
+    }
+    catch(Exception e){
+        user_idx = 0;
+    }
+
+    String name = "";
+    if(user_idx != 0 ){
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
+    
+        //유저 정보 가져오기
+        String sql = "SELECT * FROM user WHERE idx = ?; ";
+    
+        PreparedStatement query = connect.prepareStatement(sql);
+    
+        query.setInt(1, user_idx);
+    
+        ResultSet result = query.executeQuery();
+        
+        result.next();
+        name = result.getString("name");
+    }
+    
+    
+
+%>
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +62,7 @@
             <input type="button" value="일정 입력" id="mobile_middle_btn">
         </div>
         <p id="header_right">
-            사용자님의 일정
+            <%=name%>님의 일정
         </p>
     </header>
     <div id="mobile_input">
@@ -85,6 +124,18 @@
             </form> -->
         </div>
     </main>
-    <script src="../js/mainPage.js"></script>
+    <script src="../js/mainPage.js">
+    </script>
+    <script>
+        console.log("<%=name%>")
+        console.log("<%=user_idx%>")
+        
+        var user_idx = <%=user_idx%>
+
+        if(user_idx == 0){
+            alert("로그인 후 이용할 수 있습니다")
+            history.back()
+        }
+    </script>
 </body>
 </html>

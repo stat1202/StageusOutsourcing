@@ -17,7 +17,10 @@ main{
     display: flex;
     justify-content: center;
 }
-
+header{
+    display: flex;
+    justify-content: center;
+}
 #logo{
     margin: 0;
     font-family: Arial Black;
@@ -56,7 +59,9 @@ main{
     flex-shrink: 0;
     border: none;
 }
-
+#submit:hover{
+    cursor: pointer;
+}
 
 #select{
     max-width: 290px;

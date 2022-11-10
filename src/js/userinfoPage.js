@@ -21,6 +21,7 @@ function okClick(){
     var update_btn = document.getElementById("update")
     var delete_btn = document.getElementById("delete")
     var ok_btn = document.getElementById("ok")
+    var form = document.getElementById("form")
 
     var email = hidden[0].value
     var name = hidden[1].value
@@ -29,34 +30,42 @@ function okClick(){
 
     if(email ==''){
         alert("이메일을 입력해주십시오.")
+        event.preventDefault()
     }
-    if(name==''){
+    else if(name==''){
         alert("이름을 입력해주십시오")
+        event.preventDefault()
     }
-    if(hp==''){
-        alert("전화번호를 입력해주십시오")
-    }
-    if(dept=="Department"){
+    else if(dept=="Department"){
         alert("부서를 선택해 주십시오")
+        event.preventDefault()
     }
-
-    update_btn.style.display="flex"
-    delete_btn.style.display="flex"
-    ok_btn.style.display="none"
-
-    for(var i = 0 ; i < hidden.length; i ++){
-        hidden[i].style.display = "none"
-        info[i].style.display = "flex"
+    else if(hp==''){
+        alert("전화번호를 입력해주십시오")
+        event.preventDefault()
     }
+    else{
+        update_btn.style.display="flex"
+        delete_btn.style.display="flex"
+        ok_btn.style.display="none"
+    
+        for(var i = 0 ; i < hidden.length; i ++){
+            hidden[i].style.display = "none"
+            info[i].style.display = "flex"
+        }
+        form.setAttribute("action", "../jsp/userUpdateAction.jsp")
+    }
+    
 }
 
 function delete_userClick(){
     var bool = confirm("정말 삭제하시겠습니까?")
+    var form = document.getElementById("form")
     if(bool==1){
-
+        form.setAttribute("action", "../jsp/userDeleteAction.jsp")
     }
     else{
-
+        event.preventDefault()
     }
 
 }

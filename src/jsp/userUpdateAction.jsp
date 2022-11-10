@@ -13,65 +13,63 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%@ page import="java.util.regex.Pattern"%>
-
 <%
     request.setCharacterEncoding("utf-8");
+    //session 없으면0 있으면 받아오기
+    int user_idx = 0;
+    try{
+        user_idx = (int)session.getAttribute("user_idx");
+    }
+    catch(Exception e){
+        user_idx = 0;
+    }
 
-    //회원가입 창 값 받아오기
+    //내 정보값 받아오기
     String email = request.getParameter("email");
-    String pw = request.getParameter("pw");
     String name = request.getParameter("name");
-    String hp = request.getParameter("hp");
+    String hp_tmp = request.getParameter("hp");
     String dept = request.getParameter("Department");
+    String hp = "";
+    if(hp_tmp.contains("-")){
+        for(int i=0; i<hp_tmp.split("-").length; i++){
+            hp += hp_tmp.split("-")[i];
+        }
+    }
 
     String email_pattern = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
-    String pw_pattern = "^[A-Za-z0-9]{4,20}$";
     String name_pattern = "^[가-힣]{1,20}$";
     String hp_pattern = "^[0-9]*$";
 
     boolean email_matches = Pattern.matches(email_pattern, email);
-    boolean pw_matches = Pattern.matches(pw_pattern, pw);
     boolean name_matches = Pattern.matches(name_pattern, name);
     boolean hp_matches = Pattern.matches(hp_pattern, hp);
+    //세션 있고 정규식 만족하면 업데이트 진행
+    if(user_idx != 0 ){
+        if(email != "" && name != "" && hp !="" && dept !="Department" ){
+            if( email_matches && name_matches && hp_matches && hp.length() == 11){
 
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
-    //중복 체크
-    String sql = "SELECT email FROM user;";
-
-    PreparedStatement query = connect.prepareStatement(sql);
-    //query.setString(1, email);
-    ResultSet result = query.executeQuery();
-    //
-    int bool = 0;
-    while(result.next()){
-        if(result.getString("email").equals(email) ){
-            bool = 1;
-        }
-    }
-
-
-    if(bool == 0){
-        //데이터 넣기
-        if(email != "" && pw != "" && name != "" && hp !="" && dept !="Department" ){
-
-            if( email_matches && pw_matches && name_matches && hp_matches && hp.length() == 11){
-                String sql_insert = "INSERT INTO user (email, password, name, hp, dept) VALUES (?,?,?,?,?);";
-
-                PreparedStatement query_insert = connect.prepareStatement(sql_insert);
-                query_insert.setString(1, email);
-                query_insert.setString(2, pw);
-                query_insert.setString(3, name);
-                query_insert.setString(4, hp);
-                query_insert.setString(5, dept);
-                //쿼리 문 전송
-                query_insert.executeUpdate();
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
+            
+                    //유저 정보 수정
+                    String sql = "UPDATE user SET email = ?, name = ?, hp = ?, dept = ? WHERE idx = ?; ";
+            
+                    PreparedStatement query = connect.prepareStatement(sql);
+                    query.setString(1, email);
+                    query.setString(2, name);
+                    query.setString(3, hp);
+                    query.setString(4, dept);
+                    query.setInt(5, user_idx);                
+                    //쿼리 문 전송
+                    query.executeUpdate();
             }
             
         }
-        
     }
+    
+
 %>
+
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
@@ -81,28 +79,17 @@
 </head>
 <body>
     <script>
-    console.log(<%=email_matches%>)
-    console.log(<%=pw_matches%>)
-    console.log(<%=name_matches%>)
-    console.log(<%=hp_matches%>)
-    var bool = <%=bool%>
     var email = "<%=email%>"
-    var pw = "<%=pw%>"
     var name = "<%=name%>"
     var hp = "<%=hp%>"
     var dept = "<%=dept%>"
     // 정규식 검사
     var reg_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-    var reg_pw = /^[A-Za-z0-9]{4,20}$/
     var reg_name = /^[가-힣]{1,20}$/
     var reg_hp = /^[0-9]*$/
 
     if(email ==''){
         alert("이메일을 입력해주십시오.")
-        history.back()
-    }
-    else if(pw==''){
-        alert("비밀번호를 입력해주십시오")
         history.back()
     }
     else if(name==''){
@@ -123,29 +110,17 @@
         console.log(reg_email.test)
         history.back()
     }
-    else if( !reg_pw.test(pw)){
-        alert('4~20자의 영어와 숫자만 입력해 주세요.')
-        history.back()
-    }
     else if( !reg_name.test(name)){
         alert('올바른 이름 형식이 아닙니다.')
         history.back()
     }
-    else if( !reg_hp.test(hp) ){
-        alert("숫자만 입력해 주세요.")
-        history.back()
-    }
-    else if(hp.length < 11){
-        alert("전화번호의 길이가 짧습니다")
-        history.back()
-    }
-    else if(bool ==1){
-        alert("중복된 이메일 입니다.")
+    else if( !reg_hp.test(hp) || hp.length != 11){
+        alert("전화번호의 길이가 길거나 짧습니다.")
         history.back()
     }
     else{
-        alert("회원가입이 완료되었습니다.")
-        location.href="../../loginPage.html"
+        alert("회원정보 수정 완료")
+        location.href="../page/userinfoPage.jsp"
     }
     </script>
 </body>
