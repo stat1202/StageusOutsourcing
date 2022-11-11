@@ -27,6 +27,12 @@ header{
     font-weight: 600;
 }
 
+#header_right:hover{
+    cursor: pointer;
+}
+#schedule_add{
+    cursor: pointer;
+}
 #mobile_middle_btn{
     display: none;
     height: 32px;
@@ -52,6 +58,13 @@ header{
     border-radius: 10px;
 }
 
+#mobile_middle_btn:hover{
+    cursor: pointer;
+}
+
+#mschedule_add:hover{
+    cursor: pointer;
+}
 #menu_icon{
     width: 32px;
 }
@@ -68,6 +81,8 @@ header{
     outline: 2px solid #000000;
     border: 1px solid #FFD400;
 }
+
+
 
 .btn{
     height: 32px;
@@ -91,6 +106,10 @@ main{
     color: #FFD400;
     border: none;
     font-size: 40px;
+}
+
+.arrow:hover{
+    cursor: pointer;
 }
 
 #month{
@@ -215,12 +234,23 @@ nav{
 
 .teammate{
     font-weight: 600;
+    font-size: 16px;
+    background: none;
+    padding-left: 15px;
+    display: flex;
+    width: 100%;
+    border: none;
 }
 
 .teammate:hover{
     text-decoration: underline;
+    cursor: pointer;
 }
 
+
+.idx_hidden{
+    display: none;
+}
 /* 미디어 쿼리 */
 
 @media screen and (max-width : 600px) {

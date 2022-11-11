@@ -49,9 +49,23 @@
             bool = 1;
         }
     }
+    // 이름 전화번호 체크
+    String sql2 = "SELECT * FROM user WHERE name=? and hp = ?;";
+
+    PreparedStatement query2 = connect.prepareStatement(sql2);
+
+    query2.setString(1, name);
+    query2.setString(2, hp);
+    ResultSet result2 = query2.executeQuery();
+
+    int check = 0;
+
+    if( result2.next()){
+        check = 1;
+    }
 
 
-    if(bool == 0){
+    if(bool == 0 && check == 0){
         //데이터 넣기
         if(email != "" && pw != "" && name != "" && hp !="" && dept !="Department" ){
 
@@ -86,6 +100,7 @@
     console.log(<%=name_matches%>)
     console.log(<%=hp_matches%>)
     var bool = <%=bool%>
+    var check = <%=check%>
     var email = "<%=email%>"
     var pw = "<%=pw%>"
     var name = "<%=name%>"
@@ -141,6 +156,10 @@
     }
     else if(bool ==1){
         alert("중복된 이메일 입니다.")
+        history.back()
+    }
+    else if(check == 1){
+        alert("이미 가입된 회원입니다.")
         history.back()
     }
     else{
