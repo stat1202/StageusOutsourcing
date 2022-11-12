@@ -31,7 +31,7 @@
     String dept = request.getParameter("Department");
     String hp = "";
     if(hp_tmp.contains("-")){
-        for(int i=0; i<hp_tmp.split("-").length; i++){
+        for(int i=0; i < hp_tmp.split("-").length; i++){
             hp += hp_tmp.split("-")[i];
         }
     }
@@ -45,7 +45,7 @@
     boolean hp_matches = Pattern.matches(hp_pattern, hp);
     //세션 있고 정규식 만족하면 업데이트 진행
     if(user_idx != 0 ){
-        if(email != "" && name != "" && hp !="" && dept !="Department" ){
+        if(email != "" && name != "" && hp != "" && dept != "Department" ){
             if( email_matches && name_matches && hp_matches && hp.length() == 11){
 
                     Class.forName("com.mysql.jdbc.Driver");

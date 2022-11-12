@@ -129,14 +129,28 @@ main{
     flex-wrap: wrap;
     justify-content: stretch;
 }
+.schedule_all{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 175px;
+    border: 1px solid black;
+    margin: 0;
+    height: 200px;
+}
+
 .schedule_form{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    flex-basis: 180px;
-    border: 1px solid black;
     margin: 0;
     height: 200px;
+    overflow: auto;
+    
+}
+
+.schedule_form::-webkit-scrollbar{
+    display: none;
 }
 
 .day{
@@ -150,13 +164,17 @@ main{
 .time{
     padding-left: 10px;
     font-size: 12px;
+    margin: 5px 0;
 }
 
+.schedule{
+    margin: 0;
+}
 .promise{
     font-size: 12px;
     display: flex;
     justify-content: space-between;
-    padding: 5px 10px;
+    padding: 5px ;
 }
 
 .promise_left{
@@ -183,13 +201,15 @@ main{
 
 .update_hidden{
     display: none;
+
 }
-#update_text{
+
+.update_text{
     border-radius: 5px;
     width: 130px;
 }
 
-#update_text:focus{
+.update_text:focus{
     outline: 2px solid #FFD400;
     border: 1px solid #FFD400;
 }

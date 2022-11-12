@@ -87,7 +87,7 @@
     
 
     //일정 정보 불러오기 s 는 스케쥴 의미
-    String sql_s = "SELECT * FROM schedule WHERE idx = ?;";
+    String sql_s = "SELECT * FROM schedule WHERE idx = ? ORDER BY date ASC, time ASC;";
     PreparedStatement query_s = connect.prepareStatement(sql_s);
     //자기 자신 일정
     if(compare == 1){
@@ -98,21 +98,22 @@
     }
     ResultSet result_s = query_s.executeQuery();
 
+    ArrayList s_idx_al = new ArrayList();
     ArrayList schedule_al = new ArrayList();
     ArrayList date_al = new ArrayList();
     ArrayList time_al = new ArrayList();
-
+    ArrayList user_idx_al = new ArrayList();
     while(result_s.next()){
+        user_idx_al.add(result_s.getInt("idx"));
+        s_idx_al.add(result_s.getInt("s_idx"));
         schedule_al.add( "\""+ result_s.getString("schedule") + "\"");
         date_al.add("\""+  result_s.getString("date") + "\"");
         time_al.add("\""+  result_s.getString("time") + "\"");
     }
+
+    //
+    String cur_month = request.getParameter("month_value");
 %>
-<script>
-    console.log(<%=schedule_al%>)
-    console.log(<%=date_al%>)
-    console.log(<%=time_al%>)
-</script>
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
@@ -173,7 +174,8 @@
     <main>
         <form id="month_form" action="./mainPage.jsp">
             <input type="button" value="<" class="arrow">
-            <p id="month">Jan</p>
+            <p id="month"></p>
+            <input type="text" id="month_value" name="month_value">
             <input type="button" value=">" class="arrow">
         </form>
         <div id="schedule_div">
@@ -245,11 +247,11 @@
             alert("로그인 후 이용할 수 있습니다")
             history.back()
         }
-
+        var s_idx = <%=s_idx_al%>
         var schedule_al = <%=schedule_al%>
         var date_al = <%=date_al%>
         var time_al = <%=time_al%>
-
+        var user_idx_al = <%=user_idx_al%>
         var s_year = []
         var s_month = []
         var s_date = []
@@ -262,12 +264,195 @@
             s_date.push(date_split[2] ) 
         }
 
-        for(var i = 0; i < s_year.length; i++){
-            if(s_year[i] == year && parseInt(s_month) == (month +1)){
-                //달력 출력 미완
+        //달력 출력 
+        function printSchedule(){
+            for(var i = 0; i < s_year.length; i++){
+            if(s_year[i] == year && parseInt(s_month[i]) == (month +1)){
+                //일정 출력 요소 만들기
+                var tmp_form = document.getElementById(s_date[i])
+                var tmp_time = document.createElement("p")
+                tmp_time.className = "time"
+                tmp_time.innerHTML = time_al[i]
+
+                // console.log(tmp_time)
+                var tmp_promise = document.createElement("div")
+                tmp_promise.className = "promise"
+
+                var tmp_promise_left = document.createElement("promise_left")
+                tmp_promise_left.className = "promise_left"
+
+                var tmp_schedule = document.createElement("p")
+                tmp_schedule.innerHTML = schedule_al[i]
+                tmp_schedule.className="schedule"
+                // console.log(tmp_schedule)
+
+                var tmp_hidden = document.createElement("div")
+                tmp_hidden.className="update_hidden"
+                
+                var tmp_updatetext = document.createElement("input")
+                tmp_updatetext.className = "update_text"
+                tmp_updatetext.value = schedule_al[i]
+                tmp_updatetext.name = "update_text"
+
+                var tmp_idx = document.createElement("input")
+                tmp_idx.value = s_idx[i]
+                tmp_idx.style.display = "none"
+                tmp_idx.name ="s_idx"
+                
+
+                var tmp_user = document.createElement("input")
+                tmp_user.value = user_idx_al[i]
+                tmp_user.style.display = "none"
+                tmp_user.name = "u_idx"
+
+                var tmp_ok = document.createElement("input")
+                tmp_ok.setAttribute("type", "submit")
+                tmp_ok.value = "확인"
+                tmp_ok.className = "ok_btn"
+                
+                tmp_ok.addEventListener("click",ok_scheduleClick)
+
+                tmp_hidden.appendChild(tmp_user)
+                tmp_hidden.appendChild(tmp_idx)
+                tmp_hidden.appendChild(tmp_updatetext)
+                tmp_hidden.appendChild(tmp_ok)
+
+                tmp_promise_left.appendChild(tmp_schedule)
+                tmp_promise_left.appendChild(tmp_hidden)
+
+                // console.log(tmp_promise_left)
+                // 수정 삭제 버튼 추가
+
+                var tmp_promise_right = document.createElement("div")
+                tmp_promise_right.className = "promise_right"
+
+                var tmp_update = document.createElement("input")
+                tmp_update.setAttribute("type", "button")
+                tmp_update.value ="수정"
+                tmp_update.className="update_btn"
+                tmp_update.addEventListener("click", update_scheduleClick)
+
+                var tmp_delete = document.createElement("input")
+                tmp_delete.setAttribute("type", "submit")
+                tmp_delete.value ="삭제"
+                tmp_delete.className= "delete_btn"
+                tmp_delete.addEventListener("click", delete_scheduleClick)
+
+                if(compare == 0){
+                    tmp_update.style.display = "none";
+                    tmp_delete.style.display = "none";
+                    tmp_schedule.style.width = "170px";
+                }
+
+                tmp_promise_right.appendChild(tmp_update)
+                tmp_promise_right.appendChild(tmp_delete)
+
+                tmp_promise.appendChild(tmp_promise_left)
+                tmp_promise.appendChild(tmp_promise_right)
+
+                // tmp_schedule_main.appendChild(tmp_time)
+                // tmp_schedule_main.appendChild(tmp_promise)
+                tmp_form.appendChild(tmp_time)
+                tmp_form.appendChild(tmp_promise)
+                }
             }
         }
+        function printCalendar(){
+            monthName.innerHTML = month_names[month]
+            monthValue.value = month+1
+            var schedule_div = document.getElementById("schedule_div")
+            for(var i = 0; i < num_day; i++){
+                var tmpdate = document.createElement('p')
+                tmpdate.setAttribute('class','day')
+            
+                tmpdate.innerHTML = (i+1) + "일"
+            
+                var tmpday = new Date(year, month, i+1).getDay()
+                if(tmpday== '6'){
+                    tmpdate.style.color = 'blue'
+                }
+                if(tmpday=='0'){
+                    tmpdate.style.color = 'red'
+                }
+                
+                var tmpdiv = document.createElement("div")
+                tmpdiv.className = "schedule_all"
 
+
+                var tmpform = document.createElement('form')
+                tmpform.setAttribute("class", "schedule_form")
+                if( i < 10){
+                    tmpform.id = "0" + (i+1)
+                }else{
+                    tmpform.id= i+1
+                }
+                
+                tmpdiv.appendChild(tmpdate)
+                tmpdiv.appendChild(tmpform)
+            
+                schedule_div.appendChild(tmpdiv)
+            }
+            printSchedule()
+            
+        }
+
+        function rightArrowClick(){
+            var schedule_div = document.getElementById("schedule_div")
+            if(month < 11 ){
+                month += 1
+            }
+            else if( month >= 11){
+                month = month - 12 + 1
+                year += 1
+            }
+            num_day = new Date( year, month+1, 0).getDate()
+            console.log(month)
+            while(schedule_div.hasChildNodes()){
+                schedule_div.removeChild(schedule_div.firstChild)
+            }
+            printCalendar()
+        }
+
+        function leftArrowClick(){
+            var schedule_div = document.getElementById("schedule_div")
+            if(month <= 11 && month > 0){
+                month -=1
+            }
+            else if(month <= 0){
+                month = month + 12 - 1
+                year -= 1
+            }
+            
+            console.log(month)
+            num_day = new Date( year, month-1, 0).getDate()
+
+            while(schedule_div.hasChildNodes()){
+                schedule_div.removeChild(schedule_div.firstChild)
+            }
+            printCalendar()
+        }
+
+        // 달력 만들기
+        var cur_month = <%=cur_month%>
+        console.log(cur_month)
+        var today = new Date()
+
+        var year = today.getFullYear()
+        var month = today.getMonth()
+        //0 - 1월 11 - 12월
+
+        var month_names = ['Jan', 'Feb', "Mar", "Apr", "May","June", "July", "Aug", "Sep","Oct","Nov","Dec"]
+
+        var num_day = new Date( year, month+1, 0).getDate()
+
+        var monthName = document.getElementById("month")
+        var monthValue = document.getElementById("month_value")
+        //달력 버튼  기능 추가
+        var arrow = document.getElementsByClassName("arrow")
+
+        arrow[1].addEventListener("click", rightArrowClick)
+        arrow[0].addEventListener("click", leftArrowClick)
+        printCalendar()
     </script>
 </body>
 </html>

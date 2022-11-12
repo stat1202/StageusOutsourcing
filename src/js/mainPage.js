@@ -78,11 +78,13 @@ function add_mobilesceduleClick(){
 
 function delete_scheduleClick(){
     var bool = confirm("정말 삭제하시겠습니까?")
-    if(bool==1){
 
+    var cur_scheduleform = event.target.parentElement.parentElement.parentElement
+    if(bool==1){
+        cur_scheduleform.action = "../jsp/scheduleDeleteAction.jsp"
     }
     else{
-
+        event.preventDefault()
     }
 
 }
@@ -96,74 +98,88 @@ function update_scheduleClick(){
 function ok_scheduleClick(){
     event.target.parentElement.style.display='none'
     var promise_right = event.target.parentElement.parentElement.parentElement.children[1]
+
+    var cur_scheduleform = event.target.parentElement.parentElement.parentElement.parentElement
+    console.log(cur_scheduleform)
+    cur_scheduleform.action = "../jsp/scheduleUpdateAction.jsp"
     promise_right.style.display = 'flex'
+
 }
 
 //달력 출력
-function printCalendar(){
-    monthName.innerHTML = month_names[month]
-
-    var schedule_div = document.getElementById("schedule_div")
-    for(var i = 0; i < num_day; i++){
-        var tmpdate = document.createElement('p')
-        tmpdate.setAttribute('class','day')
+// function printCalendar(){
+//     monthName.innerHTML = month_names[month]
+//     monthValue.value = month+1
+//     var schedule_div = document.getElementById("schedule_div")
+//     for(var i = 0; i < num_day; i++){
+//         var tmpdate = document.createElement('p')
+//         tmpdate.setAttribute('class','day')
     
-        tmpdate.innerHTML = (i+1) + "일"
+//         tmpdate.innerHTML = (i+1) + "일"
     
-        var tmpday = new Date(year, month, i+1).getDay()
-        if(tmpday== '6'){
-            tmpdate.style.color = 'blue'
-        }
-        if(tmpday=='0'){
-            tmpdate.style.color = 'red'
-        }
+//         var tmpday = new Date(year, month, i+1).getDay()
+//         if(tmpday== '6'){
+//             tmpdate.style.color = 'blue'
+//         }
+//         if(tmpday=='0'){
+//             tmpdate.style.color = 'red'
+//         }
         
-        var tmpform = document.createElement('form')
-        tmpform.setAttribute("class", "schedule_form")
-        tmpform.id= i+1
-        tmpform.appendChild(tmpdate)
-    
-        schedule_div.appendChild(tmpform)
-    }
-    
-}
+//         var tmpdiv = document.createElement("div")
+//         tmpdiv.className = "schedule_all"
 
-function rightArrowClick(){
-    var schedule_div = document.getElementById("schedule_div")
-    if(month < 11 ){
-        month += 1
-    }
-    else if( month >= 11){
-        month = month - 12 + 1
-        year += 1
-    }
-    num_day = new Date( year, month+1, 0).getDate()
-    console.log(month)
-    while(schedule_div.hasChildNodes()){
-        schedule_div.removeChild(schedule_div.firstChild)
-    }
-    
-    printCalendar()
-}
 
-function leftArrowClick(){
-    var schedule_div = document.getElementById("schedule_div")
-    if(month <= 11 && month > 0){
-        month -=1
-    }
-    else if(month <= 0){
-        month = month + 12 - 1
-        year -= 1
-    }
+//         var tmpform = document.createElement('form')
+//         tmpform.setAttribute("class", "schedule_form")
+//         if( i < 10){
+//             tmpform.id = "0" + (i+1)
+//         }else{
+//             tmpform.id= i+1
+//         }
+        
+//         tmpdiv.appendChild(tmpdate)
+//         tmpdiv.appendChild(tmpform)
     
-    console.log(month)
-    num_day = new Date( year, month-1, 0).getDate()
+//         schedule_div.appendChild(tmpdiv)
+//     }
+    
+// }
 
-    while(schedule_div.hasChildNodes()){
-        schedule_div.removeChild(schedule_div.firstChild)
-    }
-    printCalendar()
-}
+// function rightArrowClick(){
+//     var schedule_div = document.getElementById("schedule_div")
+//     if(month < 11 ){
+//         month += 1
+//     }
+//     else if( month >= 11){
+//         month = month - 12 + 1
+//         year += 1
+//     }
+//     num_day = new Date( year, month+1, 0).getDate()
+//     console.log(month)
+//     while(schedule_div.hasChildNodes()){
+//         schedule_div.removeChild(schedule_div.firstChild)
+//     }
+//     printCalendar()
+// }
+
+// function leftArrowClick(){
+//     var schedule_div = document.getElementById("schedule_div")
+//     if(month <= 11 && month > 0){
+//         month -=1
+//     }
+//     else if(month <= 0){
+//         month = month + 12 - 1
+//         year -= 1
+//     }
+    
+//     console.log(month)
+//     num_day = new Date( year, month-1, 0).getDate()
+
+//     while(schedule_div.hasChildNodes()){
+//         schedule_div.removeChild(schedule_div.firstChild)
+//     }
+//     printCalendar()
+// }
 
 // 사이드바 열고 닫힘
 var menu_click = 0
@@ -203,24 +219,22 @@ var madd_btn = document.getElementById("mschedule_add")
 
 madd_btn.addEventListener("click", add_mobilesceduleClick)
 
-// 달력 만들기
-var today = new Date()
+// // 달력 만들기
+// var today = new Date()
 
-var year = today.getFullYear()
-var month = today.getMonth()
-//0 - 1월 11 - 12월
+// var year = today.getFullYear()
+// var month = today.getMonth()
+// //0 - 1월 11 - 12월
 
-var month_names = ['Jan', 'Feb', "Mar", "Apr", "May","June", "July", "Aug", "Sep","Oct","Nov","Dec"]
+// var month_names = ['Jan', 'Feb', "Mar", "Apr", "May","June", "July", "Aug", "Sep","Oct","Nov","Dec"]
 
-var num_day = new Date( year, month+1, 0).getDate()
+// var num_day = new Date( year, month+1, 0).getDate()
 
-var monthName = document.getElementById("month")
+// var monthName = document.getElementById("month")
+// var monthValue = document.getElementById("month_value")
+// //달력 버튼  기능 추가
+// var arrow = document.getElementsByClassName("arrow")
 
-//달력 버튼  기능 추가
-var arrow = document.getElementsByClassName("arrow")
+// arrow[1].addEventListener("click", rightArrowClick)
+// arrow[0].addEventListener("click", leftArrowClick)
 
-arrow[1].addEventListener("click", rightArrowClick)
-arrow[0].addEventListener("click", leftArrowClick)
-
-// 초기 달력 화면 출력
-printCalendar()
