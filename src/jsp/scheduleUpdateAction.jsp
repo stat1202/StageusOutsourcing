@@ -46,6 +46,11 @@
     else{
         bool = 0;
     }
+    int month_value = Integer.parseInt(request.getParameter("month_value"));
+    int year_value = Integer.parseInt(request.getParameter("year_value"));  
+    
+    
+    
 %>
 <html lang="kr">
 <head>
@@ -62,11 +67,11 @@
         var bool = <%=bool%>
         if(bool==1){
             alert("일정 수정 완료!")
-            location.href ="../page/mainPage.jsp"
+            location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
         else{
             alert("수정 권한이 없습니다..")
-            location.href ="../page/mainPage.jsp"
+            location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
     </script>
 </body>

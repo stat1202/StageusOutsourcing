@@ -39,6 +39,8 @@
         query.executeUpdate();    
     }
     
+    int month_value = Integer.parseInt(request.getParameter("month_value"));
+    int year_value = Integer.parseInt(request.getParameter("year_value"));  
 
 %>
 <html lang="kr">
@@ -53,11 +55,11 @@
         var bool = <%=bool%>
         if(bool ==1){
             alert("일정 삭제!")
-            location.href ="../page/mainPage.jsp"
+            location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
         else{
             alert("삭제 권한이 없습니다.")
-            location.href ="../page/mainPage.jsp"
+            location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
         
     </script>

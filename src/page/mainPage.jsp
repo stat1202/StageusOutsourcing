@@ -113,6 +113,7 @@
 
     //
     String cur_month = request.getParameter("month_value");
+    String cur_year = request.getParameter("year_value");
 %>
 <html lang="kr">
 <head>
@@ -176,6 +177,7 @@
             <input type="button" value="<" class="arrow">
             <p id="month"></p>
             <input type="text" id="month_value" name="month_value">
+            <input type="text" id="year_value" name="year_value">
             <input type="button" value=">" class="arrow">
         </form>
         <div id="schedule_div">
@@ -299,6 +301,16 @@
                 tmp_idx.style.display = "none"
                 tmp_idx.name ="s_idx"
                 
+                var tmp_year = document.createElement("input")
+                tmp_year.value = cur_year
+                tmp_year.style.display = "none"
+                tmp_year.name = "year_value"
+                tmp_year.className = "year_value"
+
+                var tmp_month = document.createElement("input")
+                tmp_month.value = cur_month
+                tmp_month.style.display = "none"
+                tmp_month.name = "month_value"
 
                 var tmp_user = document.createElement("input")
                 tmp_user.value = user_idx_al[i]
@@ -312,6 +324,8 @@
                 
                 tmp_ok.addEventListener("click",ok_scheduleClick)
 
+                tmp_hidden.appendChild(tmp_month)
+                tmp_hidden.appendChild(tmp_year)
                 tmp_hidden.appendChild(tmp_user)
                 tmp_hidden.appendChild(tmp_idx)
                 tmp_hidden.appendChild(tmp_updatetext)
@@ -357,9 +371,12 @@
                 }
             }
         }
+
         function printCalendar(){
             monthName.innerHTML = month_names[month]
             monthValue.value = month+1
+            
+            yearValue.value = year
             var schedule_div = document.getElementById("schedule_div")
             for(var i = 0; i < num_day; i++){
                 var tmpdate = document.createElement('p')
@@ -411,6 +428,7 @@
                 schedule_div.removeChild(schedule_div.firstChild)
             }
             printCalendar()
+            document.getElementById("month_form").submit()
         }
 
         function leftArrowClick(){
@@ -430,23 +448,36 @@
                 schedule_div.removeChild(schedule_div.firstChild)
             }
             printCalendar()
+            document.getElementById("month_form").submit()
         }
 
         // 달력 만들기
         var cur_month = <%=cur_month%>
-        console.log(cur_month)
-        var today = new Date()
+        var cur_year = <%=cur_year%>
+        
+        
 
-        var year = today.getFullYear()
-        var month = today.getMonth()
+        if(cur_month == null && cur_year == null){
+            today = new Date()
+            year = today.getFullYear()
+            month = today.getMonth()
+            cur_month = month+1
+            cur_year = year
+        }
+        else{
+            year = cur_year
+            month = cur_month-1
+        }
         //0 - 1월 11 - 12월
-
+        console.log(cur_month)
+        console.log(cur_year )
         var month_names = ['Jan', 'Feb', "Mar", "Apr", "May","June", "July", "Aug", "Sep","Oct","Nov","Dec"]
 
         var num_day = new Date( year, month+1, 0).getDate()
 
         var monthName = document.getElementById("month")
         var monthValue = document.getElementById("month_value")
+        var yearValue = document.getElementById("year_value")
         //달력 버튼  기능 추가
         var arrow = document.getElementsByClassName("arrow")
 

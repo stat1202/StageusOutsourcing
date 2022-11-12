@@ -11,6 +11,8 @@
 <%@ page import="java.sql.ResultSet" %>
 
 <%@ page import="java.util.ArrayList"%>
+
+<%@ page import="java.util.regex.Pattern"%>
 <%
     request.setCharacterEncoding("utf-8");
     //session 불러오기
@@ -48,6 +50,9 @@
         
     }
     
+    String[] date_split = date.split("-");
+    String year_value = date_split[0];
+    String month_value = date_split[1];
 
 %>
 <html lang="kr">
@@ -58,10 +63,10 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <%=date_split[1]%>
     <script>
         alert("일정 추가 성공!")
-        location.href ="../page/mainPage.jsp"
+        location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
     </script>
 </body>
 </html>
