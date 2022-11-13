@@ -71,9 +71,11 @@
 
     //선택된 idx 와 자기 idx 비교
     int clickteam_idx = 0;
+    String clickteam_name = "";
     int compare = 1;
     try{
         clickteam_idx = Integer.parseInt(request.getParameter("clickteam_idx"));
+        clickteam_name = request.getParameter("clickteam_name");
         if(clickteam_idx == user_idx){
             compare = 1;
         }
@@ -137,9 +139,16 @@
         <div>
             <input type="button" value="일정 입력" id="mobile_middle_btn">
         </div>
-        <p id="header_right" onclick="location.href='./mainPage.jsp'">
-            <%=name%>님의 일정
-        </p>
+        <form id="header_right" action="../jsp/logoutAction.jsp">
+            <p id="teammate">
+                <%=clickteam_name%>의 일정
+            </p>
+            <p id="profile" onclick="location.href='./mainPage.jsp'">
+                <%=name%>님
+            </p>
+            <input type="submit" id="Log-out" value="Log-out">
+        </form>
+        
     </header>
     <div id="mobile_input">
         <form id="mobile_middle" action="../jsp/scheduleAddAction.jsp">
@@ -176,6 +185,8 @@
         <form id="month_form" action="./mainPage.jsp">
             <input type="button" value="<" class="arrow">
             <p id="month"></p>
+            <input type="text" value = "" name="clickteam_name" id="clickteam_name">
+            <input type="text" value = "" name="clickteam_idx" id="clickteam_idx">
             <input type="text" id="month_value" name="month_value">
             <input type="text" id="year_value" name="year_value">
             <input type="button" value=">" class="arrow">
@@ -222,17 +233,24 @@
                 var tmp_form = document.createElement("form")
                 var tmp_idx = document.createElement('input')
                 var tmp_name = document.createElement("input")
+                var tmp_namevalue = document.createElement("input")
 
                 tmp_form.action="../page/mainPage.jsp"
                 tmp_name.type = "submit"
                 tmp_name.className = "teammate"
                 tmp_name.value = team[0][i]
+                tmp_namevalue.className ="idx_hidden"
+                tmp_namevalue.name = "clickteam_name"
+                tmp_namevalue.value= team[0][i]
                 tmp_idx.className ="idx_hidden"
                 tmp_idx.name = "clickteam_idx"
                 tmp_idx.value= team[1][i]
+                
                 tmp_form.appendChild(tmp_name)
+                tmp_form.appendChild(tmp_namevalue)
                 tmp_form.appendChild(tmp_idx)
                 nav_bottom.appendChild(tmp_form)
+                console.log(tmp_namevalue.value)
             }
             
         }
@@ -243,11 +261,14 @@
             document.getElementById("header_middle").style.display = "none"
             document.getElementById("mobile_middle_btn").style.display = "none"
         }
+        else{
+            document.getElementById("teammate").style.display = "none"
+        }
         
         //로그인 안할 시 페이지 막음
         if(user_idx == 0){
             alert("로그인 후 이용할 수 있습니다")
-            history.back()
+            location.href = "../../loginPage.html"
         }
         var s_idx = <%=s_idx_al%>
         var schedule_al = <%=schedule_al%>
@@ -428,6 +449,18 @@
                 schedule_div.removeChild(schedule_div.firstChild)
             }
             printCalendar()
+
+            var clickteam_name = document.getElementById("clickteam_name")
+            var clickteam_idx = document.getElementById("clickteam_idx")
+
+            if( compare == 1){
+                clickteam_name.value = "<%=name%>"
+                clickteam_idx.value = "<%=user_idx%>"
+            }
+            else{
+                clickteam_name.value = "<%=clickteam_name%>"
+                clickteam_idx.value = "<%=clickteam_idx%>"
+            }
             document.getElementById("month_form").submit()
         }
 
@@ -448,6 +481,18 @@
                 schedule_div.removeChild(schedule_div.firstChild)
             }
             printCalendar()
+            
+            var clickteam_name = document.getElementById("clickteam_name")
+            var clickteam_idx = document.getElementById("clickteam_idx")
+
+            if( compare == 1){
+                clickteam_name.value = "<%=name%>"
+                clickteam_idx.value = "<%=user_idx%>"
+            }
+            else{
+                clickteam_name.value = "<%=clickteam_name%>"
+                clickteam_idx.value = "<%=clickteam_idx%>"
+            }
             document.getElementById("month_form").submit()
         }
 
@@ -455,8 +500,6 @@
         var cur_month = <%=cur_month%>
         var cur_year = <%=cur_year%>
         
-        
-
         if(cur_month == null && cur_year == null){
             today = new Date()
             year = today.getFullYear()

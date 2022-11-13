@@ -22,12 +22,33 @@ header{
     display: flex;
 }
 #header_right{
+    display: flex;
+    margin: 0;
     padding-right: 25px;
     font-size: 12px;
     font-weight: 600;
 }
 
 #header_right:hover{
+    cursor: pointer;
+}
+
+#teammate{
+    padding-right: 10px;
+}
+
+#profile{
+    padding-right: 10px;
+}
+
+#Log-out{
+    background: none;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#Log-out:hover{
     cursor: pointer;
 }
 #schedule_add{
@@ -106,6 +127,14 @@ main{
     color: #FFD400;
     border: none;
     font-size: 40px;
+}
+
+#clickteam_name{
+    display: none;
+}
+
+#clickteam_idx{
+    display: none;
 }
 
 #month_value{
@@ -281,7 +310,7 @@ nav{
 }
 /* 미디어 쿼리 */
 
-@media screen and (max-width : 600px) {
+@media screen and (max-width : 670px) {
     #mobile_middle{
         display: block;
     }
