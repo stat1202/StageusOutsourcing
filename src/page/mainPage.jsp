@@ -221,8 +221,8 @@
     </script>
     <script>
         var user_idx = <%=user_idx%>
-        console.log("<%=name%>")
-        console.log("<%=user_idx%>")
+        // console.log("<%=name%>")
+        // console.log("<%=user_idx%>")
         var team = <%=team%>
         var team_bool = <%=team_bool%>
         //팀원 목록 출력
@@ -250,7 +250,7 @@
                 tmp_form.appendChild(tmp_namevalue)
                 tmp_form.appendChild(tmp_idx)
                 nav_bottom.appendChild(tmp_form)
-                console.log(tmp_namevalue.value)
+                // console.log(tmp_namevalue.value)
             }
             
         }
@@ -444,7 +444,7 @@
                 year += 1
             }
             num_day = new Date( year, month+1, 0).getDate()
-            console.log(month)
+            // console.log(month)
             while(schedule_div.hasChildNodes()){
                 schedule_div.removeChild(schedule_div.firstChild)
             }
@@ -474,7 +474,7 @@
                 year -= 1
             }
             
-            console.log(month)
+            // console.log(month)
             num_day = new Date( year, month-1, 0).getDate()
 
             while(schedule_div.hasChildNodes()){
@@ -512,8 +512,8 @@
             month = cur_month-1
         }
         //0 - 1월 11 - 12월
-        console.log(cur_month)
-        console.log(cur_year )
+        // console.log(cur_month)
+        // console.log(cur_year )
         var month_names = ['Jan', 'Feb', "Mar", "Apr", "May","June", "July", "Aug", "Sep","Oct","Nov","Dec"]
 
         var num_day = new Date( year, month+1, 0).getDate()

@@ -122,7 +122,7 @@
         var user_idx = <%=user_idx%>
         if(user_idx == 0){
             alert("로그인 후 이용할 수 있습니다")
-            history.back()
+            location.href = "../../loginPage.html"
         }
     </script>
 </body>
