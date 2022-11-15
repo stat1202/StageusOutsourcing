@@ -23,6 +23,7 @@
     }
 
     String update_text = request.getParameter("update_text");
+    String update_time = request.getParameter("update_time");
     int s_idx = Integer.parseInt(request.getParameter("s_idx"));
     int u_idx = Integer.parseInt(request.getParameter("u_idx"));
 
@@ -34,11 +35,12 @@
             Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
         
             //유저 정보 가져오기
-            String sql = "UPDATE schedule SET schedule = ? WHERE s_idx = ?; ";
+            String sql = "UPDATE schedule SET schedule = ?, time = ? WHERE s_idx = ?; ";
             PreparedStatement query = connect.prepareStatement(sql);
         
             query.setString(1, update_text);
-            query.setInt(2, s_idx);
+            query.setString(2, update_time);
+            query.setInt(3, s_idx);
             
             query.executeUpdate();    
         }
@@ -61,12 +63,13 @@
 </head>
 <body>
     일정 수정 액션
+    <%=update_time%>
     <%=s_idx%>
     <%=update_text%>
     <script>
         var bool = <%=bool%>
         if(bool==1){
-            alert("일정 수정 완료!")
+            // alert("일정 수정 완료!")
             location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
         else{

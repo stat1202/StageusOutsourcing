@@ -54,7 +54,7 @@
     <script>
         var bool = <%=bool%>
         if(bool ==1){
-            alert("일정 삭제!")
+            // alert("일정 삭제!")
             location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
         }
         else{

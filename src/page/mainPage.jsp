@@ -11,32 +11,19 @@
 <%
     request.setCharacterEncoding("utf-8");
     int user_idx = 0;
-    
+    String name = "";
+    String dept = "";
+
     try{
         user_idx = (int)session.getAttribute("user_idx");
+        name = (String)session.getAttribute("user_name");
+        dept = (String)session.getAttribute("user_dept");
     }
     catch(Exception e){
         user_idx = 0;
     }
     Class.forName("com.mysql.jdbc.Driver");
     Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
-
-    String name = "";
-    String dept = "";
-    if(user_idx != 0 ){
-        //유저 정보 가져오기
-        String sql = "SELECT * FROM user WHERE idx = ?; ";
-    
-        PreparedStatement query = connect.prepareStatement(sql);
-    
-        query.setInt(1, user_idx);
-    
-        ResultSet result = query.executeQuery();
-        
-        result.next();
-        name = result.getString("name");
-        dept = result.getString("dept");
-    }
     
     // 팀원 정보 불러오기
     String sql_team = "SELECT * FROM user WHERE dept = ?;";
@@ -312,10 +299,21 @@
                 var tmp_hidden = document.createElement("div")
                 tmp_hidden.className="update_hidden"
                 
+                var tmp_updatetime =document.createElement("input")
+
+                tmp_updatetime.setAttribute("type", "time")
+                tmp_updatetime.className = "update_time"
+                tmp_updatetime.value = time_al[i]
+                tmp_updatetime.name = "update_time"
+
+                var tmp_div = document.createElement("div")
+                tmp_div.className = "update_bottom"
+
                 var tmp_updatetext = document.createElement("input")
                 tmp_updatetext.className = "update_text"
                 tmp_updatetext.value = schedule_al[i]
                 tmp_updatetext.name = "update_text"
+                
 
                 var tmp_idx = document.createElement("input")
                 tmp_idx.value = s_idx[i]
@@ -345,12 +343,17 @@
                 
                 tmp_ok.addEventListener("click",ok_scheduleClick)
 
+                tmp_div.appendChild(tmp_updatetext)
+                tmp_div.appendChild(tmp_ok)
+
                 tmp_hidden.appendChild(tmp_month)
                 tmp_hidden.appendChild(tmp_year)
                 tmp_hidden.appendChild(tmp_user)
                 tmp_hidden.appendChild(tmp_idx)
-                tmp_hidden.appendChild(tmp_updatetext)
-                tmp_hidden.appendChild(tmp_ok)
+                tmp_hidden.appendChild(tmp_updatetime)
+                // tmp_hidden.appendChild(tmp_updatetext)
+                // tmp_hidden.appendChild(tmp_ok)
+                tmp_hidden.appendChild(tmp_div)
 
                 tmp_promise_left.appendChild(tmp_schedule)
                 tmp_promise_left.appendChild(tmp_hidden)

@@ -238,7 +238,21 @@ main{
 
 .update_hidden{
     display: none;
+    flex-direction: column;
+}
 
+.update_bottom{
+    display: flex;
+}
+
+.update_time{
+    width: 130px;
+    border-radius: 5px;
+}
+
+.update_time:focus{
+    outline: 2px solid #FFD400;
+    border: 1px solid #FFD400;
 }
 
 .update_text{
@@ -323,9 +337,13 @@ nav{
 }
 
 @media screen and (max-width:462px) {
+    #month_form{
+        justify-content: center;
+    }
     #schedule_div{
         padding: 0;
-        width: 364px;
+        width: 355px;
+        justify-content: center;
     }
     .schedule_form{
         width: 170px;

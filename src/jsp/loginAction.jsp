@@ -24,7 +24,7 @@
     Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","stageus","1234");
 
     //SQL문 준비
-    String sql = "SELECT idx, email, password from user WHERE email = ? AND password = ?;";
+    String sql = "SELECT * from user WHERE email = ? AND password = ?;";
     //전송 준비중인 sql 의미 보낼 준비 상태로 만들어줌
     PreparedStatement query = connect.prepareStatement(sql);
     query.setString(1, email);
@@ -34,12 +34,17 @@
 
     //로그인 정보가 올바르지 않으면 0 아니면 user idx에 저장
     int user_idx = 0; 
+    String user_name = "";
+    String user_dept = "";
     if(result.next()){
         user_idx = result.getInt("idx");
-        
+        user_name = result.getString("name");
+        user_dept = result.getString("dept");
     }
     // 세션에 등록
     session.setAttribute("user_idx", user_idx);
+    session.setAttribute("user_name", user_name);
+    session.setAttribute("user_dept", user_dept);
 %>
 
 <html lang="kr">
@@ -79,7 +84,7 @@
             history.back()
         }
         else{
-            alert("로그인 성공")
+            // alert("로그인 성공")
             location.href="../page/mainPage.jsp"
         }
 

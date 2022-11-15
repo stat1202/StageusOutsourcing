@@ -25,7 +25,7 @@
 <body>
     로그아웃
     <script>
-        alert("로그아웃 되었습니다.")
+        // alert("로그아웃 되었습니다.")
         location.href='../../loginPage.html'
     </script>
 </body>

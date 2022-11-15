@@ -99,7 +99,7 @@ function ok_scheduleClick(){
     event.target.parentElement.style.display='none'
     var promise_right = event.target.parentElement.parentElement.parentElement.children[1]
 
-    var cur_scheduleform = event.target.parentElement.parentElement.parentElement.parentElement
+    var cur_scheduleform = event.target.parentElement.parentElement.parentElement.parentElement.parentElement
     console.log(cur_scheduleform)
     cur_scheduleform.action = "../jsp/scheduleUpdateAction.jsp"
     promise_right.style.display = 'flex'

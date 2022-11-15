@@ -119,7 +119,7 @@
         history.back()
     }
     else{
-        alert("회원정보 수정 완료")
+        // alert("회원정보 수정 완료")
         location.href="../page/userinfoPage.jsp"
     }
     </script>

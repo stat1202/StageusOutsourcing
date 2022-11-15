@@ -65,7 +65,7 @@
 <body>
     <%=date_split[1]%>
     <script>
-        alert("일정 추가 성공!")
+        // alert("일정 추가 성공!")
         location.href ="../page/mainPage.jsp?month_value=" + "<%=month_value%>" +"&year_value=" + "<%=year_value%>"
     </script>
 </body>
